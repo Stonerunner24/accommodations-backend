@@ -20,6 +20,10 @@ module.exports = (sequalize, Sequalize) => {
             autoIncrement: true,
             allowNull: false,
         },
+        data:{
+            type: sequalize.STRING,
+            allowNull: true,
+        },
     });
 
     return StudentAccom;
