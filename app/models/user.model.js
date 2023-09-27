@@ -21,6 +21,11 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    studentId: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      allowNull: false,
+    },
   });
 
   return User;

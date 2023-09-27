@@ -9,5 +9,7 @@ module.exports = (sequalize, Sequalize) => {
             type: sequalize.STRING(1080),
             allowNull: false,
         },
-    })
+    });
+
+    return Course;
 }

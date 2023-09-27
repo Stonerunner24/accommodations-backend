@@ -27,5 +27,7 @@ module.exports = (sequalize, Sequalize) => {
             allowNull:false,
             autoIncrement: true,
         },
-    })
+    });
+    
+    return Request;
 }

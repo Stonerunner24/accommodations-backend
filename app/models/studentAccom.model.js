@@ -1,28 +1,26 @@
 module.exports = (sequalize, Sequalize) => {
-    const FacultyStaff = sequalize.define('facultyStaff', {
-        facultyStaffId:{
+    const StudentAccom = sequalize.define('studentAccom', {
+        studentAccomId:{
             type: sequalize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        fName:{
-            type: sequalize.STRING,
+        studentId:{
+            type: sequalize.INTEGER,
+            autoIncrement: true,
             allowNull: false,
         },
-        lName:{
-            type: sequalize.STRING,
+        semesterId:{
+            type: sequalize.INTEGER,
+            autoIncrement: true,
             allowNull: false,
         },
-        email:{
-            type: sequalize.STRING,
-            allowNull: false,
-        },
-        accomCatId:{
+        accomId:{
             type: sequalize.INTEGER,
             autoIncrement: true,
             allowNull: false,
         },
     });
 
-    return FacultyStaff;
+    return StudentAccom;
 }

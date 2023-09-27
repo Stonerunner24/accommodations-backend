@@ -1,5 +1,5 @@
 module.exports = (sequalize, Sequalize) => {
-    const Request = sequalize.define('request', {
+    const EmailLog = sequalize.define('emailLog', {
         emailLogId:{
             type: sequalize.INTEGER,
             autoIncrement: true,
@@ -18,5 +18,7 @@ module.exports = (sequalize, Sequalize) => {
             type: sequalize.STRING,
             allowNull: false,
         },
-    })
+    });
+
+    return EmailLog;
 }

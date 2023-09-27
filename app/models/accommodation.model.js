@@ -21,5 +21,7 @@ module.exports = (sequalize, Sequalize) => {
             type: sequalize.STRING,
             allowNull: false,
         },  
-    })
+    });
+
+    return Accommodation;
 }

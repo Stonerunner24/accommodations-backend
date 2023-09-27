@@ -1,5 +1,5 @@
 module.exports = (sequalize, Sequalize) => {
-    const AccomCatId = sequalize.define('accomCatId', {
+    const AccomCat = sequalize.define('accomCat', {
         accomCatId:{
             type: sequalize.INTEGER,
             autoIncrement: true,
@@ -9,5 +9,7 @@ module.exports = (sequalize, Sequalize) => {
             type: sequalize.STRING,
             allowNull: false,
         },
-    })
+    });
+
+    return AccomCat;
 }
