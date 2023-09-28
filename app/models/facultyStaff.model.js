@@ -19,7 +19,6 @@ module.exports = (sequelize, Sequelize) => {
         },
         accomCatId:{
             type: Sequelize.INTEGER,
-            autoIncrement: true,
             allowNull: false,
         },
     });

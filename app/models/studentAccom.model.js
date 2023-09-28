@@ -7,17 +7,14 @@ module.exports = (sequelize, Sequelize) => {
         },
         studentId:{
             type: Sequelize.INTEGER,
-            autoIncrement: true,
             allowNull: false,
         },
         semesterId:{
             type: Sequelize.INTEGER,
-            autoIncrement: true,
             allowNull: false,
         },
         accomId:{
             type: Sequelize.INTEGER,
-            autoIncrement: true,
             allowNull: false,
         },
         data:{

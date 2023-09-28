@@ -7,7 +7,6 @@ module.exports = (sequelize, Sequelize) => {
         },
         studentId:{
             type: Sequelize.INTEGER,
-            autoIncrement: true,
             allowNull: false,
         },
         dateMade:{
@@ -25,7 +24,6 @@ module.exports = (sequelize, Sequelize) => {
         semester:{
             type:INTEGER,
             allowNull:false,
-            autoIncrement: true,
         },
     });
     

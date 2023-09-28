@@ -7,7 +7,6 @@ module.exports = (sequelize, Sequelize) => {
         },
         facultyId:{
             type: Sequelize.INTEGER,
-            autoIncrement: true,
             allowNull: false,
         },
         sectionId:{

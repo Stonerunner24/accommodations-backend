@@ -2,11 +2,11 @@ module.exports = (sequelize, Sequelize) => {
     const StudentSection = sequelize.define("studentSection", {
       studentId: {
         type: Sequelize.INTEGER,
-        autoIncrement: true,
+        allowNull: false,
       },
       sectionId: {
         type: Sequelize.INTEGER,
-        autoIncrement: true,
+        allowNull: false,
       },
     });
   
