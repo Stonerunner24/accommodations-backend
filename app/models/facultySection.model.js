@@ -1,17 +1,17 @@
 module.exports = (sequalize, Sequalize) => {
     const FacultySection = sequalize.define('facultySection', {
         facultySectionId:{
-            type: sequalize.INTEGER,
+            type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
         facultyId:{
-            type: sequalize.INTEGER,
+            type: Sequelize.INTEGER,
             autoIncrement: true,
             allowNull: false,
         },
         sectionId:{
-            type: sequalize.INTEGER,
+            type: Sequelize.INTEGER,
             autoIncrement: true,
             allowNull: false,
         },

@@ -23,7 +23,6 @@ module.exports = (sequelize, Sequelize) => {
     },
     studentId: {
       type: Sequelize.INTEGER,
-      autoIncrement: true,
       allowNull: false,
     },
   });

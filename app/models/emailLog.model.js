@@ -1,21 +1,21 @@
 module.exports = (sequalize, Sequalize) => {
     const EmailLog = sequalize.define('emailLog', {
         emailLogId:{
-            type: sequalize.INTEGER,
+            type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
         studAccId:{
-            type: sequalize.INTEGER,
+            type: Sequelize.INTEGER,
             autoIncrement: true,
             allowNull: false,
         },
         date:{
-            type: sequalize.DATE,
+            type: Sequelize.DATE,
             allowNull: false,
         },
         receipt:{
-            type: sequalize.STRING,
+            type: Sequelize.STRING,
             allowNull: false,
         },
     });

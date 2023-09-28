@@ -1,24 +1,24 @@
 module.exports = (sequalize, Sequalize) => {
     const Accommodation = sequalize.define('accommodation', {
         accomId:{
-            type: sequalize.INTEGER,
+            type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
         categoryName:{
-            type: sequalize.String,
+            type: Sequelize.String,
             allowNull: false,
         },
         title:{
-            type: sequalize.STRING,
+            type: Sequelize.STRING,
             allowNull: false,
         },
         description:{
-            type: sequalize.STRING(1080),
+            type: Sequelize.STRING(1080),
             allowNull: false,
         },
         explanationFile:{
-            type: sequalize.STRING,
+            type: Sequelize.STRING,
             allowNull: false,
         },  
     });

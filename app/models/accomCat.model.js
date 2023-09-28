@@ -1,12 +1,12 @@
 module.exports = (sequalize, Sequalize) => {
     const AccomCat = sequalize.define('accomCat', {
         accomCatId:{
-            type: sequalize.INTEGER,
+            type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
         name:{
-            type: sequalize.STRING,
+            type: Sequelize.STRING,
             allowNull: false,
         },
     });

@@ -1,25 +1,25 @@
 module.exports = (sequalize, Sequalize) => {
     const Request = sequalize.define('request', {
         requestId:{
-            type: sequalize.INTEGER,
+            type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
         studentId:{
-            type: sequalize.INTEGER,
+            type: Sequelize.INTEGER,
             autoIncrement: true,
             allowNull: false,
         },
         dateMade:{
-            type: sequalize.DATE,
+            type: Sequelize.DATE,
             allowNull: false,
         },
         approvedBy:{
-            type: sequalize.STRING,
+            type: Sequelize.STRING,
             allowNull: false,
         },
         status:{
-            type: sequalize.STRING,
+            type: Sequelize.STRING,
             allowNull: false,
         },
         semester:{
