@@ -7,7 +7,6 @@ module.exports = (sequelize, Sequelize) => {
         },
         studAccId:{
             type: Sequelize.INTEGER,
-            autoIncrement: true,
             allowNull: false,
         },
         date:{

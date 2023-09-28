@@ -12,7 +12,6 @@ module.exports = (sequelize, Sequelize) => {
         },
         sectionId:{
             type: Sequelize.INTEGER,
-            autoIncrement: true,
             allowNull: false,
         },
     });

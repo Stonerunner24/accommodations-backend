@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
         },
         categoryName:{
-            type: Sequelize.String,
+            type: Sequelize.STRING,
             allowNull: false,
         },
         title:{
