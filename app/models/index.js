@@ -41,28 +41,61 @@ db.session.belongsTo(
   { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
 );
 
-// foreign key for tutorials
-db.user.hasMany(
-  db.tutorial,
-  { as: "tutorial" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
-db.tutorial.belongsTo(
-  db.user,
-  { as: "user" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
+// foreign key for Student Accommodation
+db.studentAccom.hasOne(
+  db.student,
+  { as: "student"},
+  { foreignKey: { allowNull: false}, onDelete: "CASCADE"}
+)
+db.student.belongsTo(
+  db.studentAccom,
+  { as: "studentAccom"},
+  { foreignKey: { allowNull: false}, onDelete: "CASCADE"}
+)
 
-// foreign key for lessons
-db.tutorial.hasMany(
-  db.lesson,
-  { as: "lesson" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
-db.lesson.belongsTo(
-  db.tutorial,
-  { as: "tutorial" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
+db.studentAccom.hasOne(
+  db.semester,
+  { as: "semester"},
+  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
+)
+db.semester.belongsTo(
+  db.studentAccom,
+  { as: "studentAccom"},
+  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
+)
+
+db.studentAccom.hasOne(
+  db.accommodation,
+  { as: "accommodation"},
+  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
+)
+db.accommodation.belongsTo(
+  db.studentAccom,
+  { as: "studentAccom"},
+  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
+)
+
+// connect accommodation and student accommodation
+db.accommodation.hasMany(
+  db.studentAccom,
+  { as:"studentAccom"},
+  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
+)
+db.studentAccom.belongsTo(
+  db.accommodation,
+  { as: "accommodation"},
+  { foreignKey: {allowNull: false}, onDelete:"CASCADE"}
+)
+
+db.student.hasMany(
+  db.studentAccom,
+  { as:"studentAccom"},
+  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
+)
+db.studentAccom.belongsTo(
+  db.student,
+  { as: "student"},
+  { foreignKey: {allowNull: false}, onDelete:"CASCADE"}
+)
 
 module.exports = db;
