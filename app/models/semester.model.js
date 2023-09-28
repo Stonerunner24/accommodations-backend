@@ -1,5 +1,5 @@
-module.exports = (sequalize, Sequalize) => {
-    const Semester = sequalize.define('semester', {
+module.exports = (sequelize, Sequelize) => {
+    const Semester = sequelize.define('semester', {
         semesterId:{
             type: Sequelize.INTEGER,
             autoIncrement: true,

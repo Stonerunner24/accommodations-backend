@@ -1,5 +1,5 @@
-module.exports = (sequalize, Sequalize) => {
-    const EmailLog = sequalize.define('emailLog', {
+module.exports = (sequelize, Sequelize) => {
+    const EmailLog = sequelize.define('emailLog', {
         emailLogId:{
             type: Sequelize.INTEGER,
             autoIncrement: true,

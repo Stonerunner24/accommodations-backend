@@ -1,5 +1,5 @@
-module.exports = (sequalize, Sequalize) => {
-    const Request = sequalize.define('request', {
+module.exports = (sequelize, Sequelize) => {
+    const Request = sequelize.define('request', {
         requestId:{
             type: Sequelize.INTEGER,
             autoIncrement: true,

@@ -1,4 +1,4 @@
-module.exports = (sequalize, Sequalize) => {
+module.exports = (sequalize, Sequelize) => {
     const AccomCat = sequalize.define('accomCat', {
         accomCatId:{
             type: Sequelize.INTEGER,

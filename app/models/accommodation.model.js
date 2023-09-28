@@ -1,5 +1,5 @@
-module.exports = (sequalize, Sequalize) => {
-    const Accommodation = sequalize.define('accommodation', {
+module.exports = (sequelize, Sequelize) => {
+    const Accommodation = sequelize.define('accommodation', {
         accomId:{
             type: Sequelize.INTEGER,
             autoIncrement: true,

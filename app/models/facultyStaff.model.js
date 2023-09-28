@@ -1,5 +1,5 @@
-module.exports = (sequalize, Sequalize) => {
-    const FacultyStaff = sequalize.define('facultyStaff', {
+module.exports = (sequelize, Sequelize) => {
+    const FacultyStaff = sequelize.define('facultyStaff', {
         facultyStaffId:{
             type: Sequelize.INTEGER,
             autoIncrement: true,
