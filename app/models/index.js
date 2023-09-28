@@ -87,15 +87,64 @@ db.studentAccom.belongsTo(
   { foreignKey: {allowNull: false}, onDelete:"CASCADE"}
 )
 
-db.student.hasMany(
+// foreign keys for section
+db.section.hasMany(
+  db.facultyStaff,
+  { as:"facultyStaff"},
+  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
+)
+db.facultyStaff.belongsTo(
+  db.section,
+  { as: "section"},
+  { foreignKey: {allowNull: false}, onDelete:"CASCADE"}
+)
+
+db.section.hasOne(
+  db.course,
+  { as:"course"},
+  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
+)
+db.studentAccom.belongsTo(
+  db.accommodation,
+  { as: "accommodation"},
+  { foreignKey: {allowNull: false}, onDelete:"CASCADE"}
+)
+
+// foreign key for user
+db.user.hasOne(
+  db.student,
+  { as:"student"},
+  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
+)
+db.student.belongsTo(
+  db.user,
+  { as: "user"},
+  { foreignKey: {allowNull: false}, onDelete:"CASCADE"}
+)
+
+// foreign key for request
+db.request.hasOne(
+  db.student,
+  { as:"student"},
+  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
+)
+db.student.belongsTo(
+  db.request,
+  { as: "request"},
+  { foreignKey: {allowNull: false}, onDelete:"CASCADE"}
+)
+
+// foreign key for emailLog
+db.emailLog.hasOne(
   db.studentAccom,
   { as:"studentAccom"},
   { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
 )
 db.studentAccom.belongsTo(
-  db.student,
-  { as: "student"},
+  db.emailLog,
+  { as: "emailLog"},
   { foreignKey: {allowNull: false}, onDelete:"CASCADE"}
 )
+
 
 module.exports = db;
