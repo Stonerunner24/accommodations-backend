@@ -13,10 +13,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
         },
-        facultyId:{
-            type: Sequelize.INTEGER,
-            allowNull: false,
-        },
     });
 
     return Section;s

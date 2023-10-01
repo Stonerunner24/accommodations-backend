@@ -21,10 +21,6 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    studentId: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-    },
   });
 
   return User;

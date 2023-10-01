@@ -1,3 +1,4 @@
+const { request } = require("express");
 const dbConfig = require("../config/db.config.js");
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
@@ -29,122 +30,71 @@ db.student = require("./student.model.js")(sequelize, Sequelize);
 db.studentAccom = require("./studentAccom.model.js")(sequelize, Sequelize);
 db.studentSection = require("./studentSection.model.js")(sequelize, Sequelize);
 
-// foreign key for session
-db.user.hasMany(
-  db.session,
-  { as: "session" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
-db.session.belongsTo(
-  db.user,
-  { as: "user" },
-  { foreignKey: { allowNull: false }, onDelete: "CASCADE" }
-);
+// foreign key for student section
+db.studentSection.belongsTo(db.student, {
+  foreignKey: "studentId",
+  onDelete: "CASCADE",
+});
+db.studentSection.belongsTo(db.section, {
+  foreignKey: "sectionId",
+  onDelete: "CASCADE"
+});
 
-// foreign key for Student Accommodation
-db.studentAccom.hasOne(
-  db.student,
-  { as: "student"},
-  { foreignKey: { allowNull: false}, onDelete: "CASCADE"}
-)
-db.student.belongsTo(
-  db.studentAccom,
-  { as: "studentAccom"},
-  { foreignKey: { allowNull: false}, onDelete: "CASCADE"}
-)
-
-db.studentAccom.hasOne(
-  db.semester,
-  { as: "semester"},
-  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
-)
-db.semester.belongsTo(
-  db.studentAccom,
-  { as: "studentAccom"},
-  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
-)
-
-db.studentAccom.hasOne(
-  db.accommodation,
-  { as: "accommodation"},
-  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
-)
-db.accommodation.belongsTo(
-  db.studentAccom,
-  { as: "studentAccom"},
-  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
-)
-
-// connect accommodation and student accommodation
-db.accommodation.hasMany(
-  db.studentAccom,
-  { as:"studentAccom"},
-  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
-)
-db.studentAccom.belongsTo(
-  db.accommodation,
-  { as: "accommodation"},
-  { foreignKey: {allowNull: false}, onDelete:"CASCADE"}
-)
-
-// foreign keys for section
-db.section.hasMany(
-  db.facultyStaff,
-  { as:"facultyStaff"},
-  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
-)
-db.facultyStaff.belongsTo(
-  db.section,
-  { as: "section"},
-  { foreignKey: {allowNull: false}, onDelete:"CASCADE"}
-)
-
-db.section.hasOne(
-  db.course,
-  { as:"course"},
-  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
-)
-db.studentAccom.belongsTo(
-  db.accommodation,
-  { as: "accommodation"},
-  { foreignKey: {allowNull: false}, onDelete:"CASCADE"}
-)
-
-// foreign key for user
-db.user.hasOne(
-  db.student,
-  { as:"student"},
-  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
-)
-db.student.belongsTo(
-  db.user,
-  { as: "user"},
-  { foreignKey: {allowNull: false}, onDelete:"CASCADE"}
-)
+// foreign key for student accommodation
+db.studentAccom.belongsTo(db.semester, {
+  foreignKey: "semesterId",
+  onDelete: "CASCADE"
+});
+db.studentAccom.belongsTo(db.accommodation, {
+  foreignKey: "accomId",
+  onDelete: "CASCADE"
+});
+db.studentAccom.belongsTo(db.student, {
+  foreignKey: "studentId",
+  onDelete: "CASCADE"
+});
 
 // foreign key for request
-db.request.hasOne(
-  db.student,
-  { as:"student"},
-  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
-)
-db.student.belongsTo(
-  db.request,
-  { as: "request"},
-  { foreignKey: {allowNull: false}, onDelete:"CASCADE"}
-)
+db.request.belongsTo(db.student, {
+  foreignKey: "studentId",
+  onDelete: "CASCADE"
+});
 
-// foreign key for emailLog
-db.emailLog.hasOne(
-  db.studentAccom,
-  { as:"studentAccom"},
-  { foreignKey: {allowNull: false}, onDelete: "CASCADE"}
-)
-db.studentAccom.belongsTo(
-  db.emailLog,
-  { as: "emailLog"},
-  { foreignKey: {allowNull: false}, onDelete:"CASCADE"}
-)
+// foreign key for section
+db.section.belongsTo(db.course, {
+  foreignKey: "courseNumber",
+  onDelete: "CASCADE"
+});
+db.section.belongsTo(db.facultyStaff, {
+  foreignKey: "facultyId",
+  onDelete: "CASCADE"
+});
 
+// foreign key for faculty section
+db.facultySection.belongsTo(db.section, {
+  foreignKey: "sectionId",
+  onDelete: "CASCADE"
+});
+db.facultySection.belongsTo(db.facultyStaff, {
+  foreignKey: "facultyId",
+  onDelete: "CASCADE"
+});
+
+// foreign key for user
+db.user.belongsTo(db.student, {
+  foreignKey: "studentId",
+  onDelete: "CASCADE"
+});
+
+db.session.belongsTo(db.user, {
+  foreignKey: "userId",
+  onDelete: "CASCADE"
+});
+
+// foreign key for email log
+db.emailLog.belongsTo(db.studentAccom, {
+  foreignKey: "studAccId",
+  onDelete: "CASCADE"
+});
 
 module.exports = db;

@@ -7,7 +7,12 @@ const app = express();
 
 const db = require("./app/models");
 
-db.sequelize.sync();
+db.sequelize.sync(
+  // remove before merge
+  // {
+  //   alter: true,
+  // },
+);
 
 var corsOptions = {
   origin: "http://localhost:8081",
