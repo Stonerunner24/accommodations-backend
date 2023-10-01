@@ -56,6 +56,6 @@ jobs:
             cd nodeapps/2023/project3/t4
             npm install
             sudo systemctl stop accommodations-t4-backend
-            sudo cp tutorial-backend.service /lib/systemd/system/accommodations-t4-backend.service
+            sudo cp accommodations-t4-backend.service /lib/systemd/system/accommodations-t4-backend.service
             sudo systemctl daemon-reload
             sudo systemctl start accommodations-t4-backend
