@@ -1,7 +1,7 @@
 {
-  "name": "tutorial-backend",
+  "name": "accommodations-backend",
   "version": "1.0.0",
-  "description": "Tutorial Node.js with Rest API",
+  "description": "accommodations Node.js with Rest API",
   "main": "server.js",
   "scripts": {
     "test": "jest --",
