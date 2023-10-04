@@ -83,7 +83,8 @@ db.facultySection.belongsTo(db.facultyStaff, {
 // foreign key for user
 db.user.belongsTo(db.student, {
   foreignKey: "studentId",
-  onDelete: "CASCADE"
+  onDelete: "CASCADE",
+  allowNull: true,
 });
 
 db.session.belongsTo(db.user, {
