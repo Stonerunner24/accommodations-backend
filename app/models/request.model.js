@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         approvedBy:{
             type: Sequelize.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         status:{
             type: Sequelize.STRING,
