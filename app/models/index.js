@@ -59,6 +59,10 @@ db.request.belongsTo(db.student, {
   foreignKey: "studentId",
   onDelete: "CASCADE"
 });
+db.request.belongsTo(db.semester, {
+  foreignKey: "semesterId",
+  onDelete: "CASCADE"
+});
 
 // foreign key for section
 db.section.belongsTo(db.course, {
