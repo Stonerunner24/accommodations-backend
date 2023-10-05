@@ -32,6 +32,7 @@ exports.login = async (req, res) => {
   let email = googleUser.email;
   let firstName = googleUser.given_name;
   let lastName = googleUser.family_name;
+  
 
   // if we don't have their email or name, we need to make another request
   // this is solely for testing purposes
@@ -52,6 +53,7 @@ exports.login = async (req, res) => {
     email = data.email;
     firstName = data.given_name;
     lastName = data.family_name;
+
   }
 
   console.log(lastName);
@@ -73,6 +75,7 @@ exports.login = async (req, res) => {
           fName: firstName,
           lName: lastName,
           email: email,
+          role: 'student',
         };
       }
     })
@@ -91,6 +94,8 @@ exports.login = async (req, res) => {
         // res.send({ message: "User was registered successfully!" });
       })
       .catch((err) => {
+        console.log("User creation error");
+        console.log(err);
         res.status(500).send({ message: err.message });
       });
   } else {
