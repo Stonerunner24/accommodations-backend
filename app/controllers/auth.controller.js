@@ -75,8 +75,7 @@ exports.login = async (req, res) => {
           fName: firstName,
           lName: lastName,
           email: email,
-          role: role,
-          id: id,
+          role: 'student',
         };
       }
     })
@@ -95,6 +94,8 @@ exports.login = async (req, res) => {
         // res.send({ message: "User was registered successfully!" });
       })
       .catch((err) => {
+        console.log("User creation error");
+        console.log(err);
         res.status(500).send({ message: err.message });
       });
   } else {
