@@ -20,7 +20,7 @@ exports.create = (req, res) => {
         studendId: req.body.studentId
 
     };
-    Request.create(accommodation)
+    Request.create(request)
         .then((data) => {
             res.send(data);
         })
@@ -47,7 +47,7 @@ exports.findAll = (req, res) => {
 
             });
         });
-}
+};
 
 //find all requests for status of either 'Open' or 'Closed'
 exports.findAllForStatus = (req, res) => {
@@ -141,7 +141,7 @@ exports.update = (req, res) => {
 // Delete a request with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.requestId;
-    Tutorial.destroy({
+    Request.destroy({
       where: { id: id },
     })
       .then((num) => {
@@ -162,7 +162,7 @@ exports.delete = (req, res) => {
       });
 };
 
-// Delete all Tutorials from the database.
+// Delete all requests from the database.
 exports.deleteAll = (req, res) => {
     Request.destroy({
       where: {},
