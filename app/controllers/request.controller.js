@@ -20,6 +20,10 @@ exports.create = (req, res) => {
         studendId: req.body.studentId
 
     };
+    
+      //import nodemailer
+      const nodemailer = require('nodemailer');
+      
     Request.create(request)
         .then((data) => {
             res.send(data);
