@@ -26,8 +26,8 @@ exports.create = (req, res) => {
     
     const transporter = nodemailer.createTransport({
       service: 'gmail', auth: {
-      user: 'd.billingsley@eagles.oc.edu',
-      pass: 'vgda slvb kold qglx'
+      user: 'teamfoursoftware@gmail.com',
+      pass: 'arqn rgcs ckbn bmsg'
       }
       });
 
