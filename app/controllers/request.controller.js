@@ -52,7 +52,7 @@ exports.findAll = (req, res) => {
 //find all requests for status of either 'Open' or 'Closed'
 exports.findAllForStatus = (req, res) => {
     const status = req.params.status
-    Request.findAll({where: {staus: status}})
+    Request.findAll({where: {status: status}})
         .then((data) => {
             if(data){
                 res.send(data);
