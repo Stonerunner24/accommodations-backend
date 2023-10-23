@@ -52,7 +52,7 @@ exports.findAll = (req, res) => {
 //find all requests for status of either 'Open' or 'Closed'
 exports.findAllForStatus = (req, res) => {
     const status = req.params.status
-    Request.findAll({where: {status: status}})
+    Request.findAll({where: {status: status}, include: db.student})
         .then((data) => {
             if(data){
                 res.send(data);
@@ -64,6 +64,7 @@ exports.findAllForStatus = (req, res) => {
             }
         })
         .catch((err) => {
+          console.log(err);
             res.status(500).send({
               message:
                 err.message ||
