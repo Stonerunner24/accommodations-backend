@@ -70,6 +70,27 @@ exports.findOne = (req, res) => {
       });
  };
 
+ exports.findOneForEmail = (req, res) => {
+    const email = req.params.email;
+    Student.findAll({where: {email: email}})
+      .then((data) => {
+        if(data){
+          res.send(data);
+        }
+        else{
+          res.status(404).send({
+            message: `cannot find ${email}`,
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: 
+            err.message || 'Error retrieving '+email,
+        });
+      });
+ };
+
 //update a student by the id in the request
 exports.update = (req, res) => {
     const id = req.params.studentId;

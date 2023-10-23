@@ -12,6 +12,9 @@ module.exports = (app) => {
     //Retrieve a single student for a particular id
     router.get("/:id", [authenticate], students.findOne);
 
+    //retrieve a single student for a particular email
+    router.get("/:email", [authenticate], students.findOneForEmail);
+
     //update a student with id
     router.put("/:id", [authenticate], students.update);
 

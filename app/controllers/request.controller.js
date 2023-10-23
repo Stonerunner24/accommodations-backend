@@ -1,5 +1,6 @@
 const db = require("../models");
 const Request = db.request;
+const Student = db.student;
 const Op = db.Sequelize.Op;
 
 //create a new request and add it to the database
@@ -12,13 +13,11 @@ exports.create = (req, res) => {
     }
 
     const request = {
-        requestId: req.body.requestId,
         dateMade: new Date(),
         approvedBy: null,
         status: 'Open',
         semester: req.body.semester,
-        studendId: req.body.studentId
-
+        studentId: Student.findOneForEmail(req.body.email).body.studentId,
     };
     Request.create(request)
         .then((data) => {
