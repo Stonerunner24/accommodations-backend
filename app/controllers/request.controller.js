@@ -12,85 +12,170 @@ exports.create = (req, res) => {
         return;
     }
 
-    //create a new request
-
     const request = {
         requestId: req.body.requestId,
-        dateMade: Date.now(),
+        dateMade: new Date(),
         approvedBy: null,
-        status: null,
+        status: 'Open',
         semester: req.body.semester,
-        createdAt: Date.now(),
-        updatedAt: null,
-        studentId: req.body.studentId,
+        studendId: req.body.studentId
+
     };
-
-    //save request into the database
-
     Request.create(request)
-        .then((data)=>{
+        .then((data) => {
             res.send(data);
         })
         .catch((err) => {
             res.status(500).send({
-                message: err.message || "some error occurred while creating the Request",
+                message:
+                    err.message || "Some error occurred whilst creating the request"
             });
         });
 };
 
-
-//retrieve all requests from the database.
-
+//retrieve all requests from the database
 exports.findAll = (req, res) => {
-    const id = req.query.id;
-    var condition = id ? {id: { [Op.like]: `%${id}%` } } : null;
-
+    const requestId = req.query.requestId;
+    var condition = requestId ? {requestId: {[Op.like]: `%${requestId}%`}} : null;
     Request.findAll({ where: condition})
         .then((data) => {
             res.send(data);
         })
         .catch((err) => {
             res.status(500).send({
-                message: err.message || "Some error occured while retrieving requests",
+                message:
+                err.message || "Some error occurred whilst retrieving requests"
+
             });
         });
 };
 
-// find a single request with an Id
-
-exports.findOne = (req, res) => {
-    const id = req.params.requestId;
-
-    Request.findByPk(id)
+//find all requests for status of either 'Open' or 'Closed'
+exports.findAllForStatus = (req, res) => {
+    const status = req.params.status
+    Request.findAll({where: {status: status}})
         .then((data) => {
             if(data){
                 res.send(data);
-            }else{
+            }
+            else{
                 res.status(404).send({
-                    message: `cannot find request with id=${id}.`,
+                    message: `Cannot find ${status} requests.`,
                 });
             }
         })
         .catch((err) => {
             res.status(500).send({
-                message: `Error retrieving request with id=${id}`,
+              message:
+                err.message ||
+                'Error retrieving ' + status + ' requests.',
             });
         });
 };
 
-//delete all requests from database
-exports.deleteAll = (req, res) => {
-    Request.destroy({
-        where: {},
-        truncate: false,
-    })
-        .then((nums) => {
-            res.send({ message: `${nums} requests were deleted successfully `});
+exports.findAllForStudent = (req, res) => {
+    const student = req.params.studentId
+    Request.findAll({where: {student: student}})
+        .then((data) => {
+            if(data){
+                res.send(data);
+            }
+            else{
+                res.status(404).send({
+                    message: `Cannot find ${student}'s requests.`,
+                });
+            }
         })
         .catch((err) => {
             res.status(500).send({
-                message: err.message || "Some error occured while removing all requests from the database"
-
+              message:
+                err.message ||
+                "Error retrieving " + student + "'s requests.",
             });
         });
 };
+
+//find a single request with an id
+exports.findOne = (req, res) => {
+    const id = req.params.requestId;
+    Request.findByPk(requestId)
+      .then((data) => {
+        if (data) {
+          res.send(data);
+        } else {
+          res.status(404).send({
+            message: `Cannot find Request with id=${requestId}.`,
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Error retrieving Request with id=" + requestId,
+        });
+      });
+ };
+
+ //update a request by the id in the request
+exports.update = (req, res) => {
+    const id = req.params.requestId;
+    Request.update(req.body, {
+      where: { id: requestId },
+    })
+      .then((num) => {
+        if (num == 1) {
+          res.send({
+            message: "request was updated successfully.",
+          });
+        } else {
+          res.send({
+            message: `Cannot update request with id=${id}. Maybe request was not found or req.body is empty!`,
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Error updating request with id=" + id,
+        });
+      });
+};
+
+// Delete a request with the specified id in the request
+exports.delete = (req, res) => {
+    const id = req.params.requestId;
+    Request.destroy({
+      where: { id: id },
+    })
+      .then((num) => {
+        if (num == 1) {
+          res.send({
+            message: "request was deleted successfully!",
+          });
+        } else {
+          res.send({
+            message: `Cannot delete request with id=${id}. Maybe request was not found!`,
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Could not delete request with id=" + id,
+        });
+      });
+};
+
+// Delete all requests from the database.
+exports.deleteAll = (req, res) => {
+    Request.destroy({
+      where: {},
+      truncate: false,
+    })
+      .then((nums) => {
+        res.send({ message: `${nums} Requests were deleted successfully!` });
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while removing all requests.",
+        });
+      });
+  };
