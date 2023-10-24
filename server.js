@@ -32,6 +32,7 @@ require("./app/routes/auth.routes.js")(app);
 // require("./app/routes/tutorial.routes")(app);
 // require("./app/routes/lesson.routes")(app);
 require("./app/routes/request.routes.js")(app);
+require("./app/routes/accommodation.routes.js")(app);
 require("./app/routes/student.routes.js")(app);
 
 
