@@ -1,7 +1,5 @@
-const { accommodation } = require("../models/index.js");
-
 module.exports = (app) => {
-    const requests = require ("../controllers/request.controller.js");
+    const accommodation = require ("../controllers/accommodation.controller.js");
     const {authenticate} = require("../authorization/authorization.js");
     var router = require("express").Router();
 
