@@ -13,6 +13,7 @@ exports.create = async (req, res) => {
         return;
     }
 
+    //had to use async functions here to access methods from semester and student
     try{
       const semester = await Semester.findOne({
         where: {
@@ -36,6 +37,8 @@ exports.create = async (req, res) => {
         return;
       }
 
+      //check in backend console, see if the insert query has all relevant information 
+      //it doesn't for me and idk why
       const request = {
         dateMade: new Date(),
         approvedBy: null,
@@ -44,6 +47,7 @@ exports.create = async (req, res) => {
         studentId: student.studentId,
       };
 
+      //might also be the async here firing before the other two complete?
       const createdRequest = await Request.create(request);
       res.send(createdRequest);
     } catch (err){
