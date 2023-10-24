@@ -52,8 +52,7 @@ exports.findAll = (req, res) => {
 //Find a single course with a courseNumber
 
 exports.findOne = (req, res) => {
-    const id = req.params.courseNumber
-    ;
+    const id = req.params.courseNumber;
 
     Course.findByPk(id)
         .then((data) =>{
@@ -113,4 +112,29 @@ exports.deleteAll = (req, res) => {
                 err.message || "Some error occurred while removing all courses"
         });
     });
+};
+
+//update a course 
+exports.update = (req, res) => {
+    const id = req.params.courseNumber;
+
+    Course.update(req.body, {
+        where: {courseNumber: id},
+    })
+        .then((num) => {
+            if(num ==1){
+                res.send({
+                    message: "Course was successfully updated",
+                });
+            } else{
+                res.send({
+                    message: `Cannot update course with courseNumber=${id}. It may be that this course does not exist or req.body is empty`,
+                });
+            }
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: "error updating course with id = " + id
+            });
+        });
 };

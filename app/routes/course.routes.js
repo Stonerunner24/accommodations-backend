@@ -12,6 +12,9 @@ module.exports = (app) => {
     // retrive a single course by its course number
     router.get("/:courseNumber", [authenticate], course.findOne);
 
+    //update a single course by its course number
+    router.put("/:courseNumber", [authenticate], course.update);
+
     //delete a course by its course number
     router.delete("/:courseNumber", [authenticate], course.delete);
 
