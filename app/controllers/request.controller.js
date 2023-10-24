@@ -1,34 +1,57 @@
 const db = require("../models");
 const Request = db.request;
+const Semester = db.semester;
 const Student = db.student;
 const Op = db.Sequelize.Op;
 
 //create a new request and add it to the database
-exports.create = (req, res) => {
-    if(!req.body.requestId){
+exports.create = async (req, res) => {
+    if(!req.body.season){
         res.status(400).send({
             message: "Content cannot be empty!", 
         });
         return;
     }
 
-    const request = {
+    try{
+      const semester = await Semester.findOne({
+        where: {
+          season: req.body.season,
+          year: req.body.year
+        }
+      });
+      //REMOVE ME
+      console.log(semester.semesterId);
+      const student = await Student.findOne({
+        where: {
+          email: req.body.email
+        }
+      });
+      //REMOVE ME
+      console.log(student.studentId);
+      if(!semester || !student){
+        res.status(404).send({
+          message: 'student or semester not found',
+        });
+        return;
+      }
+
+      const request = {
         dateMade: new Date(),
         approvedBy: null,
         status: 'Open',
-        semester: req.body.semester,
-        studentId: Student.findOneForEmail(req.body.email).body.studentId,
-    };
-    Request.create(request)
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred whilst creating the request"
-            });
-        });
+        semester: semester.semesterId,
+        studentId: student.studentId,
+      };
+
+      const createdRequest = await Request.create(request);
+      res.send(createdRequest);
+    } catch (err){
+      res.status(500).send({
+        message:
+            err.message || "Some error occurred whilst creating the request"
+      });
+    }
 };
 
 //retrieve all requests from the database

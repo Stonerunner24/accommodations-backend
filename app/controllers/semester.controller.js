@@ -32,7 +32,8 @@ exports.findAll = (req, res) => {
     var condition = semesterId ? {semesterId: {[Op.like]: `%${semesterId}%`}} : null;
     Semester.findAll({ where: condition})
         .then((data) => {
-            res.send(data);
+            if(data.length > 0)
+              res.send(data);
         })
         .catch((err) => {
             res.status(500).send({
@@ -67,7 +68,7 @@ exports.findOne = (req, res) => {
 exports.findOneForSeasonYear = (req, res) => {
     const season = req.params.season;
     const year = req.params.year;
-    Semester.findAll({where: {season: season} && {year: year}})
+    Semester.findAll({where: {season: season, year: year}})
         .then((data) => {
             if(data){
                 res.send(data);
@@ -76,7 +77,7 @@ exports.findOneForSeasonYear = (req, res) => {
                 res.status(404).send({
                     message: `cannot find ${season} ${year}`,
                 });
-            }
+            } 
         })
         .catch((err) => {
             res.status(500).send({

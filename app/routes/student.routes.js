@@ -7,19 +7,19 @@ module.exports = (app) => {
     router.post("/", [authenticate], students.create);
 
     //retrieve all students
-    router.get("/", [authenticate], students.findAll);
+    router.get("/", students.findAll);
     
     //Retrieve a single student for a particular id
-    router.get("/:id", [authenticate], students.findOne);
+    router.get("/id/:id", [authenticate], students.findOne);
 
     //retrieve a single student for a particular email
-    router.get("/:email", [authenticate], students.findOneForEmail);
+    router.get("/email/:email", students.findOneForEmail);
 
     //update a student with id
-    router.put("/:id", [authenticate], students.update);
+    router.put("/id/:id", [authenticate], students.update);
 
     //delete a student with id
-    router.delete("/:id", [authenticate], students.delete);
+    router.delete("/id/:id", [authenticate], students.delete);
 
     //delete all students
     router.delete("/", [authenticate], students.deleteAll);
