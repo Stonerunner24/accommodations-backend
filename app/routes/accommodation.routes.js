@@ -1,25 +1,25 @@
 module.exports = (app) => {
-    const accommodation = require("../controllers/accommodation.controller.js");
-    const { authenticate } = require("../authorization/authorization.js");
+    const accommodation = require ("../controllers/accommodation.controller.js");
+    const {authenticate} = require("../authorization/authorization.js");
     var router = require("express").Router();
 
-    //create a new accommodation
+    //create a new request
     router.post("/", [authenticate], accommodation.create);
 
-    //retrive all accommodations
+    //retrieve all requests
     router.get("/", [authenticate], accommodation.findAll);
-
-    //retrive an accommodation by accomId
-    router.get("/:accomId", [authenticate], accommodation.findOne);
     
-    //update an accommodation by accomId
-    router.put("/:accomId", [authenticate], accommodation.update);
+    //Retrieve all requests for student
+    router.get("/studentReq/:studentId", [authenticate], accommodation.findAllForAccommCategory);
 
-    //delete an accommodation by accomId
-    router.delete("/:accomId", [authenticate], accommodation.delete);
+    //update a request with id
+    router.put("/:id", [authenticate], accommodation.update);
 
-    //delete all accommodations 
-    router.delete("/" [authenticate], accommodation.deleteAll);
+    //delete a request with id
+    router.delete("/:id", [authenticate], accommodation.delete);
+
+    //delete all requests
+    router.delete("/", [authenticate], accommodation.deleteAll);
 
     app.use("/accommodations-t4/accommodation", router);
 };
