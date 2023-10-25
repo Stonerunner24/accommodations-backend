@@ -47,6 +47,30 @@ exports.create = async (req, res) => {
         studentId: student.studentId,
       };
 
+      //import nodemailer
+    const nodemailer = require('nodemailer');
+    
+    const transporter = nodemailer.createTransport({
+      service: 'gmail', auth: {
+      user: 'teamfoursoftware@gmail.com',
+      pass: 'arqn rgcs ckbn bmsg'
+      }
+      });
+
+    const mailOptions = {
+        from: transporter.user,
+        to: 'd.billingsley@eagles.oc.edu',
+        subject: 'Test', text:
+        'Four score and seven years ago our fathers brought forth, on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.'
+      };
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log('Error: ' + error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+
       //might also be the async here firing before the other two complete?
       const createdRequest = await Request.create(request);
       res.send(createdRequest);
