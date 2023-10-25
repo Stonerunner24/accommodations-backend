@@ -21,6 +21,17 @@ exports.create = (req, res) => {
         studendId: req.body.studentId
 
     };
+    
+    //import nodemailer
+    const nodemailer = require('nodemailer');
+    
+    const transporter = nodemailer.createTransport({
+      service: 'gmail', auth: {
+      user: 'teamfoursoftware@gmail.com',
+      pass: 'arqn rgcs ckbn bmsg'
+      }
+      });
+
     Request.create(request)
         .then((data) => {
             res.send(data);
@@ -31,6 +42,20 @@ exports.create = (req, res) => {
                     err.message || "Some error occurred whilst creating the request"
             });
         });
+
+        const mailOptions = {
+            from: transporter.user,
+            to: 'd.billingsley@eagles.oc.edu',
+            subject: 'Test', text:
+            'Four score and seven years ago our fathers brought forth, on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.'
+          };
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.log('Error: ' + error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
 };
 
 //retrieve all requests from the database

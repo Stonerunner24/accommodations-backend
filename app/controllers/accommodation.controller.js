@@ -2,135 +2,150 @@ const db = require("../models");
 const Accommodation = db.accommodation;
 const Op = db.Sequelize.Op;
 
-//create and save a new accomodation
-
+//create a new accommodation and add it to the database
 exports.create = (req, res) => {
-    //validate request
     if(!req.body.accomId){
         res.status(400).send({
-            message: "content cannot be empty",
+            message: "Content cannot be empty!", 
         });
         return;
     }
-
-    //create the accommodation
     const accommodation = {
         accomId: req.body.accomId,
         categoryName: req.body.categoryName,
         title: req.body.title,
         description: req.body.description,
         explanationFile: req.body.explanationFile,
+        createdAt: new Date(),
+        updatedAt: new Date(),
     };
-
-    //save accommodation in database
-    Accommodation.create(accommodation)
+        Accommodation.create(accommodation)
         .then((data) => {
             res.send(data);
         })
         .catch((err) => {
             res.status(500).send({
-                message: err.message || "Some error occured while creating an accommodation"
+                message:
+                    err.message || "Some error occurred whilst creating the accommodation"
             });
         });
 };
 
-
-
-
-// Retrieve all People from the database.
+//retrieve all accommodations from the database
 exports.findAll = (req, res) => {
-    const id = req.query.id;
-    var condition = id ? { id: { [Op.like]: `%${id}%` } } : null;
-  
-    User.findAll({ where: condition })
+    const accomId = req.query.accomId;
+    var condition = accomId ? {accomId: {[Op.like]: `%${accomId}%`}} : null;
+    Accommodation.findAll({ where: condition})
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message:
+                err.message || "Some error occurred whilst retrieving accommodation"
+
+            });
+        });
+};
+
+exports.findAllForAccommCategory = (req, res) => {
+    const accomcats = req.params.accomCatId
+    Accommodation.findAll({where: {accomcats: accomcats}})
+        .then((data) => {
+            if(data){
+                res.send(data);
+            }
+            else{
+                res.status(404).send({
+                    message: `Cannot find ${accomcats}'s requests.`,
+                });
+            }
+        })
+        .catch((err) => {
+            res.status(500).send({
+              message:
+                err.message ||
+                "Error retrieving " + accomcats + "'s requests.",
+            });
+        });
+};
+
+//find a single request with an id
+exports.findOne = (req, res) => {
+    const id = req.params.accomId;
+    Accommodation.findByPk(accomId)
       .then((data) => {
-        res.send(data);
+        if (data) {
+          res.send(data);
+        } else {
+          res.status(404).send({
+            message: `Cannot find Accommodation with id=${accomId}.`,
+          });
+        }
       })
       .catch((err) => {
         res.status(500).send({
-          message: err.message || "Some error occurred while retrieving accomodations.",
+          message: err.message || "Error retrieving Accommodation with id=" + accomId,
         });
       });
-  };
-
-//find a single accommodation with an accomId
-exports.findOne = (req, res) =>{
+ };
+ 
+ //update a request by the id in the request
+ exports.update = (req, res) => {
     const id = req.params.accomId;
-
-    User.findByPk(id)
-    .then((data) => {
-      if (data) {
-        res.send(data);
-      } else {
-        res.status(404).send({
-          message: `Cannot find User with id=${id}.`,
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Error retrieving User with id=" + id,
-      });
-    });
-};
-
-//update an accommodation by the id in the request
-exports.update = (req, res) => {
-    const accomId = req.params.accomId;
-
     Accommodation.update(req.body, {
-        where: {accomId: accomId},
+      where: { id: accomId },
     })
-        .then((num) => {
-            if(num == 1) {
-                res.send({
-                    message: "accomodation was updated successfully"
-                });
-            }else{
-                res.send({
-                    message: `Cannot update User with id=${accomId}. Maybe accommodation was not found or req.body is empty!`,
-                });
-            }
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message: "Error updating accommodation with id " + accomId,
-            });
+      .then((num) => {
+        if (num == 1) {
+          res.send({
+            message: "accommodatiom was updated successfully.",
+          });
+        } else {
+          res.send({
+            message: `Cannot update accomodation with id=${id}. Maybe accommodation was not found or req.body is empty!`,
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Error updating accommodation with id=" + id,
         });
+      });
 };
 
+// Delete an accommodation with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.params.accomid;
-
+    const id = req.params.accomId;
     Accommodation.destroy({
-        where: {accomId: id},
+      where: { id: id },
     })
-        .then((num) => {
-            if(num == 1){
-                res.send({
-                    message: "accommodation was deleted successfully",
-                });
-            } else {
-                res.send({
-                    message: `Cannot delete accommodation with accommodation id = ${accomId}`
-                });
-            }
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message:"could not delete accommodation with id = " + accomId,
-            });
+      .then((num) => {
+        if (num == 1) {
+          res.send({
+            message: "accommodation was deleted successfully!",
+          });
+        } else {
+          res.send({
+            message: `Cannot delete accommodation with id=${id}. Maybe request was not found!`,
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Could not delete accommodation with id=" + id,
         });
+      });
 };
 
-//delete all of the accommodations
+// Delete all accommodations from the database.
 exports.deleteAll = (req, res) => {
-    User.destroy({
+    Accommodation.destroy({
       where: {},
       truncate: false,
     })
       .then((nums) => {
-        res.send({ message: `${nums} accommodations were deleted successfully!` });
+        res.send({ message: `${nums} Requests were deleted successfully!` });
       })
       .catch((err) => {
         res.status(500).send({
