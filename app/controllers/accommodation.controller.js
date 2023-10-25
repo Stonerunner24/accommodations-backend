@@ -37,6 +37,7 @@ exports.findAll = (req, res) => {
     var condition = accomId ? {accomId: {[Op.like]: `%${accomId}%`}} : null;
     Accommodation.findAll({ where: condition})
         .then((data) => {
+          console.log(data);
             res.send(data);
         })
         .catch((err) => {
