@@ -43,7 +43,7 @@ exports.create = async (req, res) => {
         dateMade: new Date(),
         approvedBy: null,
         status: 'Open',
-        semester: semester.semesterId,
+        semesterId: semester.semesterId,
         studentId: student.studentId,
       };
 
