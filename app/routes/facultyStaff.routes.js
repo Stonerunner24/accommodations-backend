@@ -23,7 +23,7 @@ module.exports = (app) => {
     //delete all faculty memebers
     router.delete("/", [authenticate], facultyStaff.deleteAll);
 
-    app.use("/accommodations-t4/facultyStaffs")
+    app.use("/accommodations-t4/facultyStaffs", router)
 
 
 }
