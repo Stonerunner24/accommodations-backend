@@ -52,7 +52,7 @@ exports.findAll = (req, res) => {
 //find a single session by its ID
 
 exports.findOne = (req, res) => {
-    const id = req.params.accomCatId;
+    const id = req.params.id;
   
     User.findByPk(id)
       .then((data) => {
