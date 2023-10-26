@@ -31,6 +31,10 @@ require("./app/routes/auth.routes.js")(app);
 require("./app/routes/request.routes.js")(app);
 require("./app/routes/accommodation.routes.js")(app);
 require("./app/routes/student.routes.js")(app);
+require("./app/routes/course.routes.js")(app);
+require("./app/routes/lesson.routes.js")(app);
+require("./app/routes/user.routes.js")(app);
+require("./app/routes/emailLog.routes.js")(app);
 
 
 // set port, listen for requests
