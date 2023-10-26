@@ -80,28 +80,28 @@ exports.findAllForAccommCategory = (req, res) => {
 //find a single request with an id
 exports.findOne = (req, res) => {
     const id = req.params.accomId;
-    Accommodation.findByPk(accomId)
+    Accommodation.findByPk(id)
       .then((data) => {
         if (data) {
           res.send(data);
         } else {
           res.status(404).send({
-            message: `Cannot find Accommodation with id=${accomId}.`,
+            message: `Cannot find Accommodation with id=${id}.`,
           });
         }
       })
       .catch((err) => {
         res.status(500).send({
-          message: err.message || "Error retrieving Accommodation with id=" + accomId,
+          message: err.message || "Error retrieving Accommodation with id=" + id,
         });
       });
  };
  
  //update a request by the id in the request
  exports.update = (req, res) => {
-    const id = req.params.accomId;
+    const id = req.params.id;
     Accommodation.update(req.body, {
-      where: { id: accomId },
+      where: { accomId: id },
     })
       .then((num) => {
         if (num == 1) {
@@ -123,9 +123,9 @@ exports.findOne = (req, res) => {
 
 // Delete an accommodation with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.params.accomId;
+    const id = req.params.id;
     Accommodation.destroy({
-      where: { id: id },
+      where: { accomId: id },
     })
       .then((num) => {
         if (num == 1) {
