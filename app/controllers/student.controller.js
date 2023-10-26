@@ -52,20 +52,41 @@ exports.findAll = (req, res) => {
 
 //find a single student with an id
 exports.findOne = (req, res) => {
-    const id = req.params.studentId;
-    Student.findByPk(studentId)
+    const id = parseInt(req.params.id);
+    Student.findByPk(id)
       .then((data) => {
         if (data) {
           res.send(data);
         } else {
           res.status(404).send({
-            message: `Cannot find Student with id=${studentId}.`,
+            message: `Cannot find Student with id=${id}.`,
           });
         }
       })
       .catch((err) => {
         res.status(500).send({
           message: err.message || "Error retrieving Student with id=" + studentId,
+        });
+      });
+ };
+
+ exports.findOneForEmail = (req, res) => {
+    const email = req.params.email;
+    Student.findAll({where: {email: email}})
+      .then((data) => {
+        if(data.length > 0){
+          res.send(data);
+        }
+        else{
+          res.status(404).send({
+            message: `cannot find ${email}`,
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: 
+            err.message || 'Error retrieving '+email,
         });
       });
  };
