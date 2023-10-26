@@ -37,9 +37,16 @@ exports.findAll = (req, res) => {
     var condition = accomId ? {accomId: {[Op.like]: `%${accomId}%`}} : null;
     Accommodation.findAll({ where: condition})
         .then((data) => {
-            res.send(data);
+          console.log(data.length);
+          if (data && data.length > 0) {
+            console.log('here', data)
+            res.status(200).send(data);
+        } else {
+            res.status(404).send({ message: "No accommodations found" });
+        }
         })
         .catch((err) => {
+          console.log(err);
             res.status(500).send({
                 message:
                 err.message || "Some error occurred whilst retrieving accommodation"

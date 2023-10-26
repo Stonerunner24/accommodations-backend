@@ -8,7 +8,7 @@ const Op = db.Sequelize.Op;
 exports.create = async (req, res) => {
     if(!req.body.season){
         res.status(400).send({
-            message: "Content cannot be empty!", 
+            message: "Content cannot be empty!",
         });
         return;
     }
