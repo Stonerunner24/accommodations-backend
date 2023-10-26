@@ -9,7 +9,7 @@ module.exports = (app) => {
     //retrieve all requests
     router.get("/", [authenticate], accommodation.findAll);
     
-    //Retrieve all requests for student
+    //Retrieve all requests for accommodation categories
     router.get("/studentReq/:studentId", [authenticate], accommodation.findAllForAccommCategory);
 
     //update a request with id
