@@ -7,7 +7,7 @@ module.exports = (app) => {
     router.post("/", [authenticate], course.create);
     
     //retrieve all courses
-    router.get("/", authenticate, course.findAll);
+    router.get("/", [authenticate], course.findAll);
 
     // retrive a single course by its course number
     router.get("/:courseNumber", [authenticate], course.findOne);
