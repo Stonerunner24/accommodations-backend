@@ -1,28 +1,53 @@
 const db = require("../models");
 const Request = db.request;
-const Op = db.Sequelize.Op
+const Semester = db.semester;
+const Student = db.student;
+const Op = db.Sequelize.Op;
 
-//create and save a new Request
-exports.create = (req, res) => {
-    //validate the request for a request
-    if(!req.body.requestId){
+//create a new request and add it to the database
+exports.create = async (req, res) => {
+    if(!req.body.season){
         res.status(400).send({
             message: "Content cannot be empty!",
         });
         return;
     }
 
-    const request = {
-        requestId: req.body.requestId,
+    //had to use async functions here to access methods from semester and student
+    try{
+      const semester = await Semester.findOne({
+        where: {
+          season: req.body.season,
+          year: req.body.year
+        }
+      });
+      //REMOVE ME
+      console.log(semester.semesterId);
+      const student = await Student.findOne({
+        where: {
+          email: req.body.email
+        }
+      });
+      //REMOVE ME
+      console.log(student.studentId);
+      if(!semester || !student){
+        res.status(404).send({
+          message: 'student or semester not found',
+        });
+        return;
+      }
+
+      //check in backend console, see if the insert query has all relevant information 
+      //it doesn't for me and idk why
+      const request = {
         dateMade: new Date(),
         approvedBy: null,
         status: 'Open',
-        semester: req.body.semester,
-        studendId: req.body.studentId
+        semesterId: semester.semesterId,
+        studentId: student.studentId,
+      };
 
-    };
-    
-    //import nodemailer
+      //import nodemailer
     const nodemailer = require('nodemailer');
     
     const transporter = nodemailer.createTransport({
@@ -32,30 +57,29 @@ exports.create = (req, res) => {
       }
       });
 
-    Request.create(request)
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred whilst creating the request"
-            });
-        });
+    const mailOptions = {
+        from: transporter.user,
+        to: req.body.email,
+        subject: 'Test', text:
+        'Four score and seven years ago our fathers brought forth, on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.'
+      };
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log('Error: ' + error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
 
-        const mailOptions = {
-            from: transporter.user,
-            to: 'd.billingsley@eagles.oc.edu',
-            subject: 'Test', text:
-            'Four score and seven years ago our fathers brought forth, on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.'
-          };
-          transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-              console.log('Error: ' + error);
-            } else {
-              console.log('Email sent: ' + info.response);
-            }
-          });
+      //might also be the async here firing before the other two complete?
+      const createdRequest = await Request.create(request);
+      res.send(createdRequest);
+    } catch (err){
+      res.status(500).send({
+        message:
+            err.message || "Some error occurred whilst creating the request"
+      });
+    }
 };
 
 //retrieve all requests from the database
@@ -78,7 +102,7 @@ exports.findAll = (req, res) => {
 //find all requests for status of either 'Open' or 'Closed'
 exports.findAllForStatus = (req, res) => {
     const status = req.params.status
-    Request.findAll({where: {status: status}})
+    Request.findAll({where: {status: status}, include: db.student})
         .then((data) => {
             if(data){
                 res.send(data);
@@ -90,6 +114,7 @@ exports.findAllForStatus = (req, res) => {
             }
         })
         .catch((err) => {
+          console.log(err);
             res.status(500).send({
               message:
                 err.message ||
