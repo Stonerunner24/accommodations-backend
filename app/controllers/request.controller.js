@@ -67,7 +67,7 @@ exports.create = async (req, res) => {
         if (error) {
           console.log('Error: ' + error);
         } else {
-          console.log('Email sent: ' + info.response);
+          console.log('Email sent: ' + info.response + ' to ' + req.body.email);
         }
       });
 
