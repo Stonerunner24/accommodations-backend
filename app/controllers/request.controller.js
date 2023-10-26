@@ -117,9 +117,11 @@ exports.findOne = (req, res) => {
 
  //update a request by the id in the request
 exports.update = (req, res) => {
-    const id = req.params.requestId;
+    console.log(req.body);
+    const id = req.params.id;
+    console.log("in update: " + id);
     Request.update(req.body, {
-      where: { id: requestId },
+      where: { requestId: id },
     })
       .then((num) => {
         if (num == 1) {
@@ -143,7 +145,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.requestId;
     Request.destroy({
-      where: { id: id },
+      where: { requestId: id },
     })
       .then((num) => {
         if (num == 1) {
