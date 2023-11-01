@@ -16,7 +16,7 @@ module.exports = (app) => {
 
     router.put("/:sectionId",[authenticate], section.update);
 
-    router.delete("/:courseNumber", [authenticate], sectoin.delete);
+    router.delete("/:sectionId", [authenticate], section.delete);
 
     router.delete("/", [authenticate], section.deleteAll);
 

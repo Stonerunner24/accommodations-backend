@@ -9,11 +9,11 @@ module.exports = (app) => {
 
     router.get("/", [authenticate], studentSection.findAll);
 
-    router.get("/:id", [authenticate], studentSection.findOne);
+    router.get("/:studentSectionId", [authenticate], studentSection.findOne);
 
-    router.put(":/id", [authenticate], studentSection.update);
+    router.put(":/studentSectionId", [authenticate], studentSection.update);
 
-    router.delete("/:id", [authenticate], studentSection.delete);
+    router.delete("/:studentSectionId", [authenticate], studentSection.delete);
 
     router.delete("/", [authenticate], studentSection.deleteAll);
 

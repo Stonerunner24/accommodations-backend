@@ -10,16 +10,16 @@ module.exports = (app) => {
     router.get("/", students.findAll);
     
     //Retrieve a single student for a particular id
-    router.get("/id/:id", [authenticate], students.findOne);
+    router.get("/id/:studentId", [authenticate], students.findOne);
 
     //retrieve a single student for a particular email
     router.get("/email/:email", students.findOneForEmail);
 
     //update a student with id
-    router.put("/id/:id", [authenticate], students.update);
+    router.put("/id/:studentId", [authenticate], students.update);
 
     //delete a student with id
-    router.delete("/id/:id", [authenticate], students.delete);
+    router.delete("/id/:studentId", [authenticate], students.delete);
 
     //delete all students
     router.delete("/", [authenticate], students.deleteAll);

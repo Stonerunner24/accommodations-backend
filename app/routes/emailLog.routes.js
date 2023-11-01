@@ -10,13 +10,13 @@ module.exports = (app) => {
     router.get("/", [authenticate], emailLog.findAll);
   
     // Retrieve a single emailLog with id
-    router.get("/:id", [authenticate], emailLog.findOne);
+    router.get("/:emailLogId", [authenticate], emailLog.findOne);
   
     // Update a emailLog with id
-    router.put("/:id", [authenticate], emailLog.update);
+    router.put("/:emailLogId", [authenticate], emailLog.update);
   
     // Delete a emailLog with id
-    router.delete("/:id", [authenticate], emailLog.delete);
+    router.delete("/:emailLogId", [authenticate], emailLog.delete);
   
     // Delete all emailLog
     router.delete("/", [authenticate], emailLog.deleteAll);

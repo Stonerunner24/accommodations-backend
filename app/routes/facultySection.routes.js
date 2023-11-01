@@ -9,11 +9,13 @@ module.exports = (app) => {
     //retrieve all faculty sections
     router.get("/", [authenticate], facultySection.findAll);
 
+    router.get("/:facultySectionId" , [authenticate], facultySection.findOne);
+
     //update a faculty section with id
-    router.put("/:id", [authenticate], facultySection.update);
+    router.put("/:facultySectionId", [authenticate], facultySection.update);
 
     //delete a faculty section with id
-    router.delete("/:id", [authenticate], facultySection.delete);
+    router.delete("/:facultySectionId", [authenticate], facultySection.delete);
 
     //delete all faculty sections
     router.delete("/", [authenticate], facultySection.deleteAll);

@@ -52,7 +52,8 @@ exports.findAll = (req, res) => {
 
 //find a single student with an id
 exports.findOne = (req, res) => {
-    const id = parseInt(req.params.id);
+    //const id = parseInt(req.params.id);
+    const id = req.params.studentId;
     Student.findByPk(id)
       .then((data) => {
         if (data) {
