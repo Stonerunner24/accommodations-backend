@@ -7,6 +7,9 @@ module.exports = (app) => {
     //create a new request
     router.post("/", [authenticate], requests.create);
 
+    //retrieve one request with id
+    router.get("/", [authenticate], requests.findOne)
+
     //retrieve all requests
     router.get("/", [authenticate], requests.findAll);
     

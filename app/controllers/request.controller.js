@@ -82,6 +82,25 @@ exports.create = async (req, res) => {
     }
 };
 
+exports.findOne = (req, res) => {
+  const requestId = parseInt(req.params.id);
+  Request.findByPk(id)
+    .then((data) => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find Request with id=${requestId}.`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Error retrieving Request with id=" + requestId,
+      });
+    });
+};
+
 //retrieve all requests from the database
 exports.findAll = (req, res) => {
     const requestId = req.query.requestId;
