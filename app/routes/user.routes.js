@@ -12,6 +12,10 @@ module.exports = (app) => {
   // Retrieve a single User with id
   router.get("/:id", [authenticate], user.findOne);
 
+  //retrieve by email
+
+  router.get("/:email", [authenticate], user.findOne);
+
   // Update a User with id
   router.put("/:id", [authenticate], user.update);
 

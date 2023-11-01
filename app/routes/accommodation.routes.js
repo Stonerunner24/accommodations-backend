@@ -9,8 +9,11 @@ module.exports = (app) => {
     //retrieve all requests
     router.get("/", [authenticate], accommodation.findAll);
     
-    //Retrieve all requests for student
-    router.get("/studentReq/:studentId", [authenticate], accommodation.findAllForAccommCategory);
+    //Retrieve all requests for accomcat
+    router.get("/category/:accomCatId", [authenticate], accommodation.findAllForAccommCategory);
+
+    //retrive all accommodations for an id
+    router.get("/:accomId", [authenticate], accommodation.findOne);
 
     //update a request with id
     router.put("/:id", [authenticate], accommodation.update);
