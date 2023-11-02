@@ -148,7 +148,7 @@ exports.findAllForStudent = (req, res) => {
 //find a single request with an id
 exports.findOne = (req, res) => {
     const id = req.params.requestId;
-    Request.findByPk(id, {include: db.student, include: db.semester})
+    Request.findByPk(id, {include: [db.student, db.semester]})
       .then((data) => {
         if (data) {
           res.send(data);
