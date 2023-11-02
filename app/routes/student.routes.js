@@ -7,13 +7,13 @@ module.exports = (app) => {
     router.post("/", [authenticate], students.create);
 
     //retrieve all students
-    router.get("/", students.findAll);
+    router.get("/", [authenticate],students.findAll);
     
     //Retrieve a single student for a particular id
     router.get("/id/:studentId", [authenticate], students.findOne);
 
     //retrieve a single student for a particular email
-    router.get("/email/:email", students.findOneForEmail);
+    router.get("/email/:email", [authenticate], students.findOneForEmail);
 
     //update a student with id
     router.put("/id/:studentId", [authenticate], students.update);
