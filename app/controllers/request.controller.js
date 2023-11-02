@@ -82,25 +82,6 @@ exports.create = async (req, res) => {
     }
 };
 
-exports.findOne = (req, res) => {
-  const id = req.params.requestId;
-  Request.findByPk(id)
-    .then((data) => {
-      if (data) {
-        res.send(data);
-      } else {
-        res.status(404).send({
-          message: `Cannot find Request with id=${id}.`,
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Error retrieving Request with id=" + id,
-      });
-    });
-};
-
 //retrieve all requests from the database
 exports.findAll = (req, res) => {
     const requestId = req.query.requestId;
@@ -164,11 +145,33 @@ exports.findAllForStudent = (req, res) => {
         });
 };
 
+//find a single request with an id
+exports.findOne = (req, res) => {
+    const id = req.params.requestId;
+    Request.findByPk(requestId, {include: db.student, include: db.semester})
+      .then((data) => {
+        if (data) {
+          res.send(data);
+        } else {
+          res.status(404).send({
+            message: `Cannot find Request with id=${requestId}.`,
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Error retrieving Request with id=" + requestId,
+        });
+      });
+ };
+
  //update a request by the id in the request
 exports.update = (req, res) => {
-    const id = req.params.requestId;
+    console.log(req.body);
+    const id = req.params.id;
+    console.log("in update: " + id);
     Request.update(req.body, {
-      where: { id: requestId },
+      where: { requestId: id },
     })
       .then((num) => {
         if (num == 1) {
@@ -192,7 +195,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.requestId;
     Request.destroy({
-      where: { id: id },
+      where: { requestId: id },
     })
       .then((num) => {
         if (num == 1) {
