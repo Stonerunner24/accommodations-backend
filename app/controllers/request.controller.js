@@ -83,20 +83,20 @@ exports.create = async (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-  const requestId = parseInt(req.params.id);
+  const id = req.params.requestId;
   Request.findByPk(id)
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Request with id=${requestId}.`,
+          message: `Cannot find Request with id=${id}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Error retrieving Request with id=" + requestId,
+        message: err.message || "Error retrieving Request with id=" + id,
       });
     });
 };
@@ -163,26 +163,6 @@ exports.findAllForStudent = (req, res) => {
             });
         });
 };
-
-//find a single request with an id
-exports.findOne = (req, res) => {
-    const id = req.params.requestId;
-    Request.findByPk(requestId)
-      .then((data) => {
-        if (data) {
-          res.send(data);
-        } else {
-          res.status(404).send({
-            message: `Cannot find Request with id=${requestId}.`,
-          });
-        }
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message || "Error retrieving Request with id=" + requestId,
-        });
-      });
- };
 
  //update a request by the id in the request
 exports.update = (req, res) => {
