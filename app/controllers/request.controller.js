@@ -148,19 +148,19 @@ exports.findAllForStudent = (req, res) => {
 //find a single request with an id
 exports.findOne = (req, res) => {
     const id = req.params.requestId;
-    Request.findByPk(requestId, {include: db.student, include: db.semester})
+    Request.findByPk(id, {include: db.student, include: db.semester})
       .then((data) => {
         if (data) {
           res.send(data);
         } else {
           res.status(404).send({
-            message: `Cannot find Request with id=${requestId}.`,
+            message: `Cannot find Request with id=${id}.`,
           });
         }
       })
       .catch((err) => {
         res.status(500).send({
-          message: err.message || "Error retrieving Request with id=" + requestId,
+          message: err.message || "Error retrieving Request with id=" + id,
         });
       });
  };
