@@ -1,8 +1,8 @@
 const db = require("../models");
-const StudentAccom = db.studentaccoms;
-const Accom = db.accommodations;
-const Semester = db.semesters;
-const Student = db.students;
+const StudentAccom = db.studentAccom;
+const Accom = db.accommodation;
+const Semester = db.semester;
+const Student = db.student;
 const Op = db.Sequelize.Op;
 
 exports.create = async (req, res) => {
@@ -10,19 +10,17 @@ exports.create = async (req, res) => {
     try {
         const accom = await Accom.findOne({
             where: {
-                categoryName: req.body.categoryName,
-                title: req.body.title,
+                accomId: req.body.accomId,
             },
-        });
+        })
 
-        const semester = Semester.findOne({
+        const semester = await Semester.findOne({
             where: {
-                season: req.body.season,
-                year: req.body.year,
+                semesterId: req.body.semesterId,
             },
         });
 
-        const student = Student.findOne({
+        const student = await Student.findOne({
             where: {
                 studentId: req.body.studentId,
             },
@@ -43,7 +41,7 @@ exports.create = async (req, res) => {
                 semesterId: semester.semesterId,
                 studentId: student.studentId,
             };
-
+          
         const createdRequest = await StudentAccom.create(studentAccom);
 
         res.send(createdRequest);
