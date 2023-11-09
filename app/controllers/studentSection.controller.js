@@ -1,7 +1,7 @@
 const db = require("../models");
-const StudentSection = db.studentsections;
-const Section = db.sections;
-const Student = db.students;
+const StudentSection = db.studentSection;
+const Section = db.section;
+const Student = db.student;
 const Op = db.Sequelize.Op;
 
 exports.create = async (req, res) => {
