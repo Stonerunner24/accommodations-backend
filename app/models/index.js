@@ -73,6 +73,10 @@ db.section.belongsTo(db.facultyStaff, {
   foreignKey: "facultyId",
   onDelete: "CASCADE"
 });
+db.section.belongsTo(db.semester, {
+  foreignKey: "semesterId",
+  onDelete: "CASCADE"
+});
 
 // foreign key for faculty section
 db.facultySection.belongsTo(db.section, {

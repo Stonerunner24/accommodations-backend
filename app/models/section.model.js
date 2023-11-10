@@ -5,10 +5,6 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true,
         },
-        semester:{
-            type: Sequelize.STRING,
-            allowNull: false,
-        },
         courseNumber:{
             type: Sequelize.INTEGER,
             allowNull: false,
