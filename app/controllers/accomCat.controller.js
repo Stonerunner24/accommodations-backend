@@ -19,7 +19,7 @@ exports.create= (req, res) => {
     };
 
     //save session in the database
-    Session.create(accomCat)
+    AccomCat.create(accomCat)
         .then((data) =>{
             res.send(data);
         })
@@ -38,7 +38,7 @@ exports.findAll = (req, res) => {
     let condition = id ? { id: { [Op.like]: `%${id}%`}} : null;
 
 
-    Session.findAll({Where: condition})
+    AccomCat.findAll({Where: condition})
         .then((data) => {
             res.send(data);
         })
