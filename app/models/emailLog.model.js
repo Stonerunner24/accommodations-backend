@@ -1,22 +1,24 @@
 module.exports = (sequelize, Sequelize) => {
     const EmailLog = sequelize.define('emailLog', {
-        emailLogId:{
+        emailLogId: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        studAccId:{
+        studAccId: {
             type: Sequelize.INTEGER,
             allowNull: false,
         },
-        date:{
+        date: {
             type: Sequelize.DATE,
             allowNull: false,
         },
-        receipt:{
+        receipt: {
             type: Sequelize.STRING,
             allowNull: false,
         },
+    }, {
+        timestamps: false
     });
 
     return EmailLog;

@@ -1,23 +1,25 @@
 module.exports = (sequelize, Sequelize) => {
     const Request = sequelize.define('request', {
-        requestId:{
+        requestId: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        dateMade:{
+        dateMade: {
             type: Sequelize.DATE,
             allowNull: false,
         },
-        approvedBy:{
+        approvedBy: {
             type: Sequelize.STRING,
             allowNull: true,
         },
-        status:{
+        status: {
             type: Sequelize.STRING,
             allowNull: false,
         },
+    }, {
+        timestamps: false
     });
-    
+
     return Request;
 }

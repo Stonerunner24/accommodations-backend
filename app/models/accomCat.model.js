@@ -1,14 +1,17 @@
 module.exports = (sequalize, Sequelize) => {
     const AccomCat = sequalize.define('accomCat', {
-        accomCatId:{
+        accomCatId: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        name:{
+        name: {
             type: Sequelize.STRING,
             allowNull: false,
-        },
+        }
+    }, {
+
+        timestamps: false
     });
 
     return AccomCat;

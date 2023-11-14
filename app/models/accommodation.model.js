@@ -1,26 +1,28 @@
 module.exports = (sequelize, Sequelize) => {
     const Accommodation = sequelize.define('accommodation', {
-        accomId:{
+        accomId: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        categoryName:{
+        categoryName: {
             type: Sequelize.STRING,
             allowNull: false,
         },
-        title:{
+        title: {
             type: Sequelize.STRING,
             allowNull: false,
         },
-        description:{
+        description: {
             type: Sequelize.STRING(1080),
-            allowNull: false,
+            allowNull: true,
         },
-        explanationFile:{
+        explanationFile: {
             type: Sequelize.STRING,
-            allowNull: false,
-        },  
+            allowNull: true,
+        },
+    }, {
+        timestamps: false
     });
 
     return Accommodation;
