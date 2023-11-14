@@ -19,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         explanationFile: {
             type: Sequelize.STRING,
-            allowNull: false,
+            allowNull: true,
         },
     }, {
         timestamps: false
