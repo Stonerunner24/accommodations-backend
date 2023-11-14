@@ -5,7 +5,7 @@ module.exports = (app) => {
     const {authenticate} = require("../authorization/authorization.js");
     var router = require("express").Router();
 
-    router.post("/", [authenticate], studentAccom.create);
+    router.post("/", studentAccom.create);
 
     router.get("/", [authenticate], studentAccom.findAll);
 
