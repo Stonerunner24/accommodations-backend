@@ -1,26 +1,28 @@
 module.exports = (sequelize, Sequelize) => {
     const FacultyStaff = sequelize.define('facultyStaff', {
-        facultyStaffId:{
+        facultyStaffId: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        fName:{
+        fName: {
             type: Sequelize.STRING,
             allowNull: false,
         },
-        lName:{
+        lName: {
             type: Sequelize.STRING,
             allowNull: false,
         },
-        email:{
+        email: {
             type: Sequelize.STRING,
             allowNull: false,
         },
-        accomCatId:{
+        accomCatId: {
             type: Sequelize.INTEGER,
             allowNull: false,
         },
+    }, {
+        timestamps: false
     });
 
     return FacultyStaff;

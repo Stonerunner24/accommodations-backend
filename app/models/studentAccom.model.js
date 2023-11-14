@@ -1,18 +1,20 @@
 module.exports = (sequelize, Sequelize) => {
     const StudentAccom = sequelize.define('studentAccom', {
-        studentAccomId:{
+        studentAccomId: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
-        accomId:{
+        accomId: {
             type: Sequelize.INTEGER,
             allowNull: false,
         },
-        data:{
+        data: {
             type: Sequelize.STRING,
             allowNull: true,
         },
+    }, {
+        timestamps: false
     });
 
     return StudentAccom;
