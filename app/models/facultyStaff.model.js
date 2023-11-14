@@ -19,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         accomCatId: {
             type: Sequelize.INTEGER,
-            allowNull: false,
+            allowNull: true,
         },
     }, {
         timestamps: false

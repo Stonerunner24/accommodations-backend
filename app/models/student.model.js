@@ -28,7 +28,7 @@ module.exports = (sequelize, Sequelize) => {
     },
     version: {
       type: Sequelize.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
   }, {
     timestamps: false
