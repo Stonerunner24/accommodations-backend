@@ -15,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         description: {
             type: Sequelize.STRING(1080),
-            allowNull: false,
+            allowNull: true,
         },
         explanationFile: {
             type: Sequelize.STRING,

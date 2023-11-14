@@ -20,10 +20,11 @@ module.exports = (sequelize, Sequelize) => {
     permission: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
+      defaultValue: 0
     },
     dateSigned: {
       type: Sequelize.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     version: {
       type: Sequelize.STRING(255),
