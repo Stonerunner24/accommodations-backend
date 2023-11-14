@@ -4,12 +4,6 @@ const Op = db.Sequelize.Op;
 
 //create a new accommodation and add it to the database
 exports.create = (req, res) => {
-    if(!req.body.accomId){
-        res.status(400).send({
-            message: "Content cannot be empty!", 
-        });
-        return;
-    }
     const accommodation = {
         accomId: req.body.accomId,
         categoryName: req.body.categoryName,
