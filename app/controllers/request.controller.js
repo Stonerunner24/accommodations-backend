@@ -47,29 +47,10 @@ exports.create = async (req, res) => {
       studentId: student.studentId,
     };
 
-    //import nodemailer
-    const nodemailer = require('nodemailer');
-
-    const transporter = nodemailer.createTransport({
-      service: 'gmail', auth: {
-        user: 'teamfoursoftware@gmail.com',
-        pass: 'arqn rgcs ckbn bmsg'
-      }
-    });
-
-    const mailOptions = {
-      from: transporter.user,
-      to: req.body.email,
-      subject: 'Test', text:
-        'Four score and seven years ago our fathers brought forth, on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.'
-    };
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log('Error: ' + error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
+    // import nodemailer helper
+    const nodemailerHelper = require('../utils/nodeMailer.helper.js');
+    nodemailerHelper.sendEmail(req.body.email, 'ADA Accommodations -- Next Steps', 
+    'Dear student, thank you for making a student ADA accommodations request! To continue in the process, please make an appointment with Student Success to review your situation and get you assigned accommodations for this semester. Please bring <document list> to your appointment.');
 
     //might also be the async here firing before the other two complete?
     const createdRequest = await Request.create(request);
