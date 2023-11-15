@@ -5,14 +5,6 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true,
         },
-        facultyId: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-        },
-        sectionId: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-        },
     }, {
         timestamps: false
     });

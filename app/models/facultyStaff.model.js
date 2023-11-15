@@ -17,10 +17,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false,
         },
-        accomCatId: {
-            type: Sequelize.INTEGER,
-            allowNull: true,
-        },
     }, {
         timestamps: false
     });

@@ -39,6 +39,7 @@ require("./app/routes/emailLog.routes.js")(app);
 require("./app/routes/facultySection.routes.js")(app);
 require("./app/routes/facultyStaff.routes.js")(app);
 require("./app/routes/studentAccom.routes.js")(app);
+require("./app/routes/testing.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3024;
@@ -47,5 +48,6 @@ if (process.env.NODE_ENV !== "test") {
     console.log(`Server is running on port ${PORT}.`);
   });
 }
+
 
 module.exports = app;

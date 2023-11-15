@@ -34,24 +34,46 @@ db.studentSection = require("./studentSection.model.js")(sequelize, Sequelize);
 db.studentSection.belongsTo(db.student, {
   foreignKey: "studentId",
   onDelete: "CASCADE",
+  allowNull: false
 });
 db.studentSection.belongsTo(db.section, {
   foreignKey: "sectionId",
-  onDelete: "CASCADE"
+  onDelete: "CASCADE",
+  allowNull: false
+});
+// bidirectionality for FKs for student section
+db.student.hasMany(db.studentSection, {
+  foreignKey: "studentId"
+});
+db.section.hasMany(db.studentSection, {
+  foreignKey: "sectionId"
 });
 
 // foreign key for student accommodation
 db.studentAccom.belongsTo(db.semester, {
   foreignKey: "semesterId",
-  onDelete: "CASCADE"
+  onDelete: "CASCADE",
+  allowNull: false
 });
 db.studentAccom.belongsTo(db.accommodation, {
   foreignKey: "accomId",
-  onDelete: "CASCADE"
+  onDelete: "CASCADE",
+  allowNull: false
 });
 db.studentAccom.belongsTo(db.student, {
   foreignKey: "studentId",
-  onDelete: "CASCADE"
+  onDelete: "CASCADE",
+  allowNull: false
+});
+// Bidirectionality for student accommodation
+db.semester.hasMany(db.studentAccom, {
+  foreignKey: "semesterId"
+});
+db.accommodation.hasMany(db.studentAccom, {
+  foreignKey: "accomId"
+});
+db.student.hasMany(db.studentAccom, {
+  foreignKey: "studentId"
 });
 
 // foreign key for request
@@ -63,19 +85,29 @@ db.request.belongsTo(db.semester, {
   foreignKey: "semesterId",
   onDelete: "CASCADE"
 });
+// Bidirectionality for request
+db.student.hasMany(db.request, {
+  foreignKey: "studentId"
+});
+db.semester.hasMany(db.request, {
+  foreignKey: "semesterId"
+});
 
 // foreign key for section
 db.section.belongsTo(db.course, {
   foreignKey: "courseNumber",
   onDelete: "CASCADE"
 });
-db.section.belongsTo(db.facultyStaff, {
-  foreignKey: "facultyId",
-  onDelete: "CASCADE"
-});
 db.section.belongsTo(db.semester, {
   foreignKey: "semesterId",
   onDelete: "CASCADE"
+});
+// Bidirectionality for section
+db.course.hasMany(db.section, {
+  foreignKey: "courseNumber"
+});
+db.semester.hasMany(db.section, {
+  foreignKey: "semesterId"
 });
 
 // foreign key for faculty section
@@ -87,6 +119,19 @@ db.facultySection.belongsTo(db.facultyStaff, {
   foreignKey: "facultyId",
   onDelete: "CASCADE"
 });
+// Bidirectionality for faculty section
+db.section.hasMany(db.facultySection, {
+  foreignKey: "sectionId"
+});
+db.facultyStaff.hasMany(db.facultySection, {
+  foreignKey: "facultyId"
+});
+
+// foreign key for facultyStaff
+db.facultyStaff.belongsTo(db.accomCat, {
+  foreignKey: "accomCatId",
+  allowNull: true
+})
 
 // foreign key for user
 db.user.belongsTo(db.student, {
@@ -94,16 +139,26 @@ db.user.belongsTo(db.student, {
   onDelete: "CASCADE",
   allowNull: true,
 });
+// Bidirectionality for user
+db.student.hasOne(db.user, {
+  foreignKey: "studentId"
+});
 
 db.session.belongsTo(db.user, {
   foreignKey: "userId",
   onDelete: "CASCADE"
+});
+db.user.hasMany(db.session, {
+  foreignKey: "userId"
 });
 
 // foreign key for email log
 db.emailLog.belongsTo(db.studentAccom, {
   foreignKey: "studAccId",
   onDelete: "CASCADE"
+});
+db.studentAccom.hasMany(db.emailLog, {
+  foreignKey: "studAccId"
 });
 
 module.exports = db;
