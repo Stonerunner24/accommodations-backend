@@ -11,6 +11,8 @@ module.exports = (app) => {
 
     router.get("/:studentAccomId", [authenticate], studentAccom.findOne);
 
+    router.get("/:studentId",[authenticate], studentAccom.findAllForStudent);
+
     router.put(":/studentAccomId", [authenticate], studentAccom.update);
 
     router.delete("/:studentAccomId", [authenticate], studentAccom.delete);
