@@ -124,8 +124,8 @@ exports.findAllForStatus = (req, res) => {
 };
 
 exports.findAllForStudent = (req, res) => {
-    const student = req.params.studentId
-    Request.findAll({where: {student: student}})
+    const studentId = req.params.studentId
+    Request.findAll({where: {studentId: studentId}})
         .then((data) => {
             if(data){
                 res.send(data);
