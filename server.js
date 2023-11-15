@@ -39,7 +39,7 @@ require("./app/routes/emailLog.routes.js")(app);
 require("./app/routes/facultySection.routes.js")(app);
 require("./app/routes/facultyStaff.routes.js")(app);
 require("./app/routes/studentAccom.routes.js")(app);
-require("./app/routes/testing.routes.js")(app);
+require("./app/routes/emailFaculty.routes.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3024;

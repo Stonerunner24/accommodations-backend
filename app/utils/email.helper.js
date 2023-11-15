@@ -1,14 +1,3 @@
-/*- Trigger script
-    1. Get prof emails
-    - Fetch associated student
-    - Grab student's faculty by:
-    - Student -> StudentSection -> Section -> FacultySection -> Faculty/Staff
-    - Get faculty emails
-    2. Generate PDF
-    - Using JSPDF
-    3. Email the profs
-    - Save in EmailLog*/
-
 const db = require("../models");
 const nodemailer = require("./nodeMailer.helper");
 
@@ -17,7 +6,7 @@ exports.emailFacultyStaff = async (studentId, semesterId) => {
     // Get the student
     let student = await db.student.findByPk(studentId);
     console.log(student);
-    // TODO: fetch studentAccoms for given semester and AccomCat 'Academics'
+    // Get the associated studentAccoms for the given semester
     let studentAccoms = await db.studentAccom.findAll({
         where: {
             studentId: studentId,
@@ -66,12 +55,19 @@ exports.emailFacultyStaff = async (studentId, semesterId) => {
             email: obj.email
         }
     });
-    /*
+    
     // Iterate over all the Faculty/Staff and compose/send email
     for (fac in faculty) {
-        let body = fac.fName + ' ' + fac.lName + ', \n\n Be advised that your student, '
-        + student.fName + ' ' + student.lName + ' is eligible for academic accommodations this semester.';
-    }*/
+        // Build body string
+        let body = `${ fac.fName } ${fac.lName},\n\nBe advised that your student, ${student.dataValues.fName} ${student.dataValues.lName}, is eligible for the following academic accommodations this semester:\n\n`;
+        for (studAccom in studentAccoms) {
+            body += `${studAccom.dataValues.accommodation.title}\n\n`
+        }
+        body += `Please contact Student Success with any questions.`
+        // Send email
+        nodemailer.sendEmail(fac.email, "Notice of Student ADA Accommodations", body);
+        // TODO: Insert into emailLog
+    }
 
 }
 
