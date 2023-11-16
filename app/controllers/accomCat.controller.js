@@ -4,15 +4,8 @@ const Op = db.Sequelize.Op;
 
 //create and save a new session
 exports.create= (req, res) => {
-    //validate request
-    if(!req.body.accomCatId){
-        res.status(400).send({
-            message:
-                "Content cannot be empty"
-        })
-    }
-
     //create a session
+    console.log(req.body.name)
     const accomCat = {
         accomCatId: req.body.id,
         name: req.body.name,
