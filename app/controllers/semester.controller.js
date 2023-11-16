@@ -28,6 +28,7 @@ exports.create = (req, res) =>{
 
 //find all
 exports.findAll = (req, res) => {
+    console.log('in the find all');
     const semesterId = req.query.semesterId;
     var condition = semesterId ? {semesterId: {[Op.like]: `%${semesterId}%`}} : null;
     Semester.findAll({ where: condition})
