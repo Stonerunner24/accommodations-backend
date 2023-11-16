@@ -92,6 +92,7 @@ exports.findOne = (req, res) => {
       });
  };
  exports.findAllForStudent = (req, res) => {
+  console.log("made it to the find all for student function");
   const studentId = req.params.studentId;
   StudentAccom.findAll({where: {studentId: studentId}})
     .then((data) => {
@@ -100,7 +101,8 @@ exports.findOne = (req, res) => {
       }
       else{
         res.status(404).send({
-          message: `Cannot find accommodations for student ${studentId}`
+          message:err.message ||
+           `Cannot find accommodations for student ${studentId}`
         });
       }
     })

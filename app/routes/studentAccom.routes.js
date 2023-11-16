@@ -1,4 +1,3 @@
-const { student } = require("../models");
 
 module.exports = (app) => {
     const studentAccom = require ("../controllers/studentAccom.controller.js");
@@ -11,7 +10,7 @@ module.exports = (app) => {
 
     router.get("/:studentAccomId", [authenticate], studentAccom.findOne);
 
-    router.get("/:studentId",[authenticate], studentAccom.findAllForStudent);
+    router.get("/studentId/:studentId", [authenticate], studentAccom.findAllForStudent);
 
     router.put(":/studentAccomId", [authenticate], studentAccom.update);
 
