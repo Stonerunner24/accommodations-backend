@@ -119,6 +119,7 @@ exports.findOne = (req, res) => {
  } ;
 
  exports.findAllForSemester = async (req, res) => {
+  console.log("attempting to find all for a semester");
     let sem = req.params.semester.substring(0,2);
     let season = null;
     let year = req.params.semester.substring(2);
@@ -142,6 +143,7 @@ exports.findOne = (req, res) => {
         if(data)
           res.send(data);
         else{
+          console.log("sending 404");
           res.status(404).send({
             message:err.message ||
              `Cannot find accommodations for semester ${req.params.semester}`
@@ -149,6 +151,7 @@ exports.findOne = (req, res) => {
         }
       })
       .catch((err) => {
+        console.log("sending 500");
         res.status(500).send({
           message: 
             err.message || 
