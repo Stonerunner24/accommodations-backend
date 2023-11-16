@@ -1,11 +1,12 @@
 const db = require("../models");
 const nodemailer = require("./nodeMailer.helper");
 
-exports.emailFacultyStaff = async (studentId, semesterId) => {
+// Emails all faculty who have the given student for a class in the given semester.
+// Includes all Academic Student Accommodations in the email.
+exports.emailFaculty = async (studentId, semesterId) => {
     console.log("Begin emailFacStaff method");
     // Get the student
     let student = await db.student.findByPk(studentId);
-    console.log(student);
     // Get the associated studentAccoms for the given semester
     let studentAccoms = await db.studentAccom.findAll({
         where: {
@@ -22,7 +23,6 @@ exports.emailFacultyStaff = async (studentId, semesterId) => {
             }
         }
     });
-    console.log(studentAccoms);
 
     // Get the student's faculty
     let faculty = await db.facultyStaff.findAll({
@@ -57,11 +57,10 @@ exports.emailFacultyStaff = async (studentId, semesterId) => {
     });
     
     // Iterate over all the Faculty/Staff and compose/send email
-    for (fac in faculty) {
+    for (fac of faculty) {
         // Build body string
         let body = `${ fac.fName } ${fac.lName},\n\nBe advised that your student, ${student.dataValues.fName} ${student.dataValues.lName}, is eligible for the following academic accommodations this semester:\n\n`;
-        for (studAccom in studentAccoms) {
-            console.log(studAccom.dataValues);
+        for (studAccom of studentAccoms) {
             body += `${studAccom.dataValues.accommodation.title}\n\n`
         }
         body += `Please contact Student Success with any questions.`
