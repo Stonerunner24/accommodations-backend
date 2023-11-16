@@ -94,7 +94,10 @@ exports.findOne = (req, res) => {
  exports.findAllForStudent = (req, res) => {
   console.log("made it to the find all for student function");
   const studentId = req.params.studentId;
-  StudentAccom.findAll({where: {studentId: studentId}})
+  StudentAccom.findAll({where: 
+    {studentId: studentId},
+    include: [{model: db.accommodation}, {model: db.semester}, {model: db.student}]
+  })
     .then((data) => {
       if(data){
         res.send(data);
@@ -114,6 +117,45 @@ exports.findOne = (req, res) => {
       });
     });
  } ;
+
+ exports.findAllForSemester = async (req, res) => {
+    let sem = req.params.semester.substring(0,2);
+    let season = null;
+    let year = req.params.semester.substring(2);
+    console.log(sem);
+    if(sem == "FA")
+      season = "Fall";
+    else if(sem == "SP")
+      season = "Spring";
+    else if(sem == "SU")
+      season = "Summer";
+    else if(sem == "WI")
+      season = "Winter";
+    console.log(season);
+    const semester = await Semester.findOne({where: {season: season, year: year}});
+    console.log(semester);
+    StudentAccom.findAll({
+      where: {semesterId: semester.semesterId},
+      include: [{model: db.accommodation}, {model: db.semester}, {model: db.student}]
+    })
+      .then((data) => {
+        if(data)
+          res.send(data);
+        else{
+          res.status(404).send({
+            message:err.message ||
+             `Cannot find accommodations for semester ${req.params.semester}`
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: 
+            err.message || 
+            "error retrieving accommodations for student " + studentId
+        });
+      });
+ };
 
   //update a student accom by the id in the request
 exports.update = (req, res) => {
