@@ -105,25 +105,25 @@ exports.findAllForStatus = (req, res) => {
 };
 
 exports.findAllForStudent = (req, res) => {
-  const student = req.params.studentId
-  Request.findAll({ where: { student: student } })
-    .then((data) => {
-      if (data) {
-        res.send(data);
-      }
-      else {
-        res.status(404).send({
-          message: `Cannot find ${student}'s requests.`,
+    const studentId = req.params.studentId
+    Request.findAll({where: {studentId: studentId}})
+        .then((data) => {
+            if(data){
+                res.send(data);
+            }
+            else{
+                res.status(404).send({
+                    message: `Cannot find ${student}'s requests.`,
+                });
+            }
+        })
+        .catch((err) => {
+            res.status(500).send({
+              message:
+                err.message ||
+                "Error retrieving " + student + "'s requests.",
+            });
         });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message ||
-          "Error retrieving " + student + "'s requests.",
-      });
-    });
 };
 
 //find a single request with an id
