@@ -61,6 +61,7 @@ exports.emailFacultyStaff = async (studentId, semesterId) => {
         // Build body string
         let body = `${ fac.fName } ${fac.lName},\n\nBe advised that your student, ${student.dataValues.fName} ${student.dataValues.lName}, is eligible for the following academic accommodations this semester:\n\n`;
         for (studAccom in studentAccoms) {
+            console.log(studAccom.dataValues);
             body += `${studAccom.dataValues.accommodation.title}\n\n`
         }
         body += `Please contact Student Success with any questions.`
